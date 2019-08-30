@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>person</h1>
+    <h2>navn</h2>
+    <img class="profil-billede">
+
+    <script>
+        const person = {
+            navn: "Kamilla",
+            hold: "b",
+            højde: 170,
+            hårfarve: "sølv",
+            billede: "https://kvikea.dk/pix1.jpg",
+            thumb: "https://kvikea.dk/pix2.jpg"
+        }
+
+        const h2 = document.querySelector("h2");
+        h2.textContent = person.navn;
+        h2.textContent += " Hold " + person.hold;
+
+        const img = document.querySelector("img");
+        img.src = person.billede;
+        img.alt = "billede af Kamilla";
+
+        console.log(person.navn, person.billede);
+    </script>
+
+</body></html>

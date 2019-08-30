@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Personer</h1>
+
+    <template>
+        <article>
+            <h2>navn hold</h2>
+            <img class="profil-billede">
+        </article>
+    </template>
+
+    <section id="person-liste"></section>
+
+    <script>
+        const skabelon = document.querySelector("template").content;
+        const listeElm = document.querySelector("#person-liste").content;
+
+        console.log(skabelon);
+
+        const array = [{
+                navn: "Kamilla",
+                hold: "b",
+                højde: 170,
+                hårfarve: "sølv",
+                billede: "https://kvikea.dk/pix1.jpg",
+                thumb: "https://kvikea.dk/pix2.jpg"
+            },
+            {
+                navn: "Pernille",
+                hold: "b",
+                højde: 180,
+                hårfarve: "sølv",
+                billede: "pernille.jpg",
+                thumb: "hpernilleg.jpg"
+            },
+            {
+                navn: "alan",
+                hold: "b",
+                højde: 180,
+                hårfarve: "rød",
+                billede: "https://ale-kea.dk/images/alan1.jpg",
+                thumb: "hpernilleg.jpg"
+            }
+        ]
+
+        array.forEach(person => {
+            const klon = skabelon.cloneNode(true);
+            console.log(klon);
+
+            const h2 = klon.querySelector("h2");
+            h2.textContent = person.navn;
+            h2.textContent += " Hold " + person.hold;
+
+            const img = klon.querySelector("img");
+            img.src = person.billede;
+            img.alt = "billede af " + person.navn;
+
+            listeElm.appendChild(klon);
+        })
+    </script>
+
+</body></html>
