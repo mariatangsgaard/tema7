@@ -22,9 +22,9 @@
         article img {
             width: 100%;
         }
-
     </style>
 </head>
+
 
 <body>
     <section id="liste"></section>
@@ -43,7 +43,7 @@
 
     <script>
         let personliste = [];
-
+        let filter = "k";
 
         document.addEventListener("DOMContentLoaded", start);
 
@@ -69,8 +69,7 @@
 
 
             personliste.feed.entry.forEach(person => {
-                    if (person.gsx$køn.$t) == filter) {
-
+                if (person.gsx$køn.$t == filter) {
 
                     const klon = temp.cloneNode(true);
                     // console.log(klon);
@@ -85,10 +84,7 @@
 
                     dest.appendChild(klon);
                 }
-            });
+            })
         }
-
     </script>
-</body>
-
-</html>
+</body></html>

@@ -23,11 +23,31 @@
             width: 100%;
         }
 
+        nav {
+            text-align: center;
+
+        }
+
+        .valgt {
+            background-color: red;
+        }
+
     </style>
 </head>
 
+
+<nav>
+    <button data-køn="alle" class="valgt">Alle</button>
+    <button data-køn="m">Mænd</button>
+    <button data-køn="k">Kvinder</button>
+    <button data-køn="andet">Andet</button>
+
+</nav>
+
+
 <body>
     <section id="liste"></section>
+
 
     <template>
         <article class="person">
@@ -42,35 +62,60 @@
     </template>
 
     <script>
-        let personliste = [];
-
-
         document.addEventListener("DOMContentLoaded", start);
+        let personliste = [];
+        let filter = "alle";
+
+        // første funktion der kaldes efter DOM er loaded
 
         function start() {
+
+            const filterKnapper = document.querySelectorAll("button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrer))
             hentJson();
         }
 
-        async function hentJson() {
+        //funktion der filtrerer personer (json)
 
+        function filtrer() {
+            console.log(this); //tjek at den er blevet gjort klikbar i consollen
+
+            filter = this.dataset.køn; //sæt varible "filtet" til aktuel værdi
+            console.log(filter);
+
+            document.querySelector(".valgt").classList.remove("valgt"); //fjern klassen valgt fra aktuel knap
+            this.classList.add("valgt"); //marker den nyvalgte knap
+
+            visPerson(); //kald funktionen vis igen med nyt filter
+
+        }
+
+
+        // funktion der henter data fra Google sheet (via URL)
+        async function hentJson() {
             const jsonUrl =
                 "https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json";
             const jsonData = await fetch(jsonUrl);
             console.log(jsonData);
+
             personliste = await jsonData.json();
             console.log(personliste);
 
             visPerson();
         }
 
+
+
+        //funktion der viser personer i liste view
         function visPerson() {
-            const temp = document.querySelector("template").content;
-            const dest = document.querySelector("#liste");
+
+            const dest = document.querySelector("#liste"); //container til articler med en person
+            const temp = document.querySelector("template").content; //select indhold af html skabelon (article)
+            dest.textContent = ""; //ryd destination før man kloner nye
 
 
-            personliste.feed.entry.forEach(person => {
-                    if (person.gsx$køn.$t) == filter) {
-
+            personliste.feed.entry.forEach(person => { //loop igennem json (personer)
+                if (person.gsx$køn.$t == filter || filter == "alle") { //tjek hvilket køn personer har og sammenlign med filter eller vis alle
 
                     const klon = temp.cloneNode(true);
                     // console.log(klon);
@@ -85,7 +130,7 @@
 
                     dest.appendChild(klon);
                 }
-            });
+            })
         }
 
     </script>
