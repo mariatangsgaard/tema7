@@ -48,34 +48,6 @@
         .valgt {
             background-color: pink;
         }
-
-        #detalje {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(255, 105, 180, 0.33);
-            overflow: scroll;
-
-        }
-
-        #detalje .luk {
-            position: fixed;
-            top: 0;
-            right: 0;
-            font-size: 4rem;
-            cursor: pointer;
-        }
-
-        #detalje .ret {
-            width: 60vw;
-            min-height: 50vh;
-            margin: 4rem auto;
-            padding: 4rem;
-            background: white;
-        }
-
     </style>
 </head>
 
@@ -93,18 +65,6 @@
 
 <body>
     <section id="menu"></section>
-
-    <section id="detalje">
-        <article class="ret">
-            <button class="luk">×
-            </button>
-            <h2></h2>
-            <img src="" alt="">
-            <p class="pris"></p>
-            <p class="lang"></p>
-            <p class="oprindelse"></p>
-        </article>
-    </section>
 
     <template>
         <article class="ret">
@@ -128,20 +88,16 @@
             const filterKnapper = document.querySelectorAll("nav button");
             filterKnapper.forEach(knap => knap.addEventListener("click", filtrer))
             hentJson();
-            skjulDetalje();
+            //skjulDetalje();
         }
 
         //funktion der filtrerer retter (json)
 
         function filtrer() {
             console.log(this); //tjek at den er blevet gjort klikbar i consollen
-
             filter = this.dataset.ret; //sæt varible "filter" til aktuel værdi
-            console.log(filter);
-
             document.querySelector(".valgt").classList.remove("valgt"); //fjern klassen valgt fra aktuel knap
             this.classList.add("valgt"); //marker den nyvalgte knap
-
             vis(); //kald funktionen vis igen med nyt filter
         }
 
@@ -171,7 +127,6 @@
                 if (ret.gsx$kategori.$t == filter || filter == "alt") {
                     const klon = temp.cloneNode(true);
 
-
                     klon.querySelector("h2").textContent = ret.gsx$navn.$t;
                     klon.querySelector("img").src = "/imgs/small/" + ret.gsx$billede.$t + "-sm.jpg";
                     klon.querySelector("img").alt = "billedeaf" + ret.gsx$billede.$t;
@@ -181,36 +136,9 @@
                     klon.querySelector(".lang").textContent += ret.gsx$lang.$t;
                     klon.querySelector(".oprindelse").textContent += ret.gsx$oprindelse.$t;
                     dest.appendChild(klon);
-                    dest.lastElementChild.addEventListener("click", () => {
-                        visDetalje(ret);
-                    })
+                    dest.lastElementChild.addEventListener("click", () => location.href = "babushka_detalje.html?id=" + ret.gsx$id.$t);
                 }
-
-            })
-
+            });
         }
-
-        //                funktion der viser i detalje view
-
-        function visDetalje(ret) {
-            console.log(ret);
-            document.querySelector("#detalje").style.display = "block";
-
-            document.querySelector("#detalje .luk").addEventListener("click", skjulDetalje);
-
-            document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
-            document.querySelector("#detalje .pris").textContent += ret.gsx$pris.$t;
-            document.querySelector("#detalje .lang").textContent += ret.gsx$lang.$t;
-            document.querySelector("#detalje .oprindelse").textContent += ret.gsx$oprindelse.$t;
-            document.querySelector("#detalje img").src = "/imgs/large/" + ret.gsx$billede.$t + ".jpg";
-            document.querySelector("#detalje img").alt = "billedeaf" + ret.gsx$billede.$t;
-        }
-
-        function skjulDetalje() {
-            document.querySelector("#detalje").style.display = "none";
-        }
-
     </script>
-</body>
-
-</html>
+</body></html>

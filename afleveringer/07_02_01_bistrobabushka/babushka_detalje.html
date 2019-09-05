@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bistro Babushka</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+
+
+
+    <style>
+        .ret {
+            border: 1px solid silver;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        section {
+            width: 80vw;
+            margin: 1vw auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 1rem;
+        }
+
+        article img {
+            width: 100%;
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        body {
+            background-color: ghostwhite;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        p {
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 105, 180, 0.33);
+            overflow: scroll;
+
+        }
+
+        #detalje .luk {
+            position: fixed;
+            top: 0;
+            right: 0;
+            font-size: 4rem;
+            cursor: pointer;
+        }
+
+        #detalje .ret {
+            width: 60vw;
+            min-height: 50vh;
+            margin: 4rem auto;
+            padding: 4rem;
+            background: white;
+            position: center;
+        }
+    </style>
+</head>
+
+
+<nav>
+    <button data-ret="alt" class="valgt">Menu</button>
+    <button data-ret="forretter">Forretter</button>
+    <button data-ret="hovedretter">Hovedretter</button>
+    <button data-ret="desserter">Desserter</button>
+    <button data-ret="drikkevarer">Drikkevarer</button>
+    <button data-ret="sideorders">Side-orders</button>
+
+</nav>
+
+
+<body>
+    <section id="menu"></section>
+
+    <section id="detalje">
+        <article class="ret">
+            <button class="luk">×
+            </button>
+            <h2></h2>
+            <img src="" alt="">
+            <p class="pris"></p>
+            <p class="lang"></p>
+            <p class="oprindelse"></p>
+        </article>
+    </section>
+
+    <script>
+        const urlParams = new
+        URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        console.log(id);
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        let menu = [];
+
+        const jsonUrl = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json&fbclid=IwAR21EGbf3OgAgUlKlZ8RRy8Lg5tvr5pcrWEyu5gxcxE0MfKSUmKWvIdrrzg";
+
+
+        // første funktion der kaldes efter DOM er loaded
+
+        function start() {
+            hentJson();
+
+        }
+
+
+        // funktion der henter data fra Google sheet (via URL)
+        async function hentJson() {
+            const jsonData = await fetch(jsonUrl);
+            menu = await jsonData.json();
+            vis();
+        }
+
+        //funktion der viser retter i liste view
+        function vis() {
+
+            menu.feed.entry.forEach(ret => { //loop igennem json
+                if (ret.gsx$id.$t == id) {
+                    document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
+                    document.querySelector("#detalje .pris").textContent += ret.gsx$pris.$t;
+                    document.querySelector("#detalje .lang").textContent += ret.gsx$lang.$t;
+                    document.querySelector("#detalje .oprindelse").textContent += ret.gsx$oprindelse.$t;
+                    document.querySelector("#detalje img").src = "/imgs/large/" + ret.gsx$billede.$t + ".jpg";
+                    document.querySelector("#detalje img").alt = "billedeaf" + ret.gsx$billede.$t;
+
+                }
+            })
+        }
+
+        document.querySelector(".luk").addEventListener("click", () => {
+            history.back();
+        })
+    </script>
+</body></html>
