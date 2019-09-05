@@ -16,21 +16,10 @@
             cursor: pointer;
         }
 
-        section {
-            width: 80vw;
-            margin: 1vw auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-gap: 1rem;
-        }
-
         article img {
             width: 100%;
         }
 
-        nav {
-            text-align: center;
-        }
 
         body {
             background-color: ghostwhite;
@@ -52,7 +41,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(255, 105, 180, 0.33);
+            background-color: rgba(255, 105, 180, 0.13);
             overflow: scroll;
 
         }
@@ -60,7 +49,7 @@
         #detalje .luk {
             position: fixed;
             top: 0;
-            right: 0;
+            left: 0;
             font-size: 4rem;
             cursor: pointer;
         }
@@ -73,19 +62,9 @@
             background: white;
             position: center;
         }
+
     </style>
 </head>
-
-
-<nav>
-    <button data-ret="alt" class="valgt">Menu</button>
-    <button data-ret="forretter">Forretter</button>
-    <button data-ret="hovedretter">Hovedretter</button>
-    <button data-ret="desserter">Desserter</button>
-    <button data-ret="drikkevarer">Drikkevarer</button>
-    <button data-ret="sideorders">Side-orders</button>
-
-</nav>
 
 
 <body>
@@ -93,7 +72,7 @@
 
     <section id="detalje">
         <article class="ret">
-            <button class="luk">×
+            <button class="luk">⤺
             </button>
             <h2></h2>
             <img src="" alt="">
@@ -121,7 +100,6 @@
 
         function start() {
             hentJson();
-
         }
 
 
@@ -151,5 +129,8 @@
         document.querySelector(".luk").addEventListener("click", () => {
             history.back();
         })
+
     </script>
-</body></html>
+</body>
+
+</html>
