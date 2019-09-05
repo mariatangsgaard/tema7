@@ -5,6 +5,9 @@
     <title>Bistro Babushka</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+
+
 
     <style>
         .ret {
@@ -27,11 +30,23 @@
 
         nav {
             text-align: center;
+        }
 
+        body {
+            background-color: ghostwhite;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        p {
+            font-family: 'Fira Sans', sans-serif;
         }
 
         .valgt {
-            background-color: red;
+            background-color: pink;
         }
 
         #detalje {
@@ -40,7 +55,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(255, 255, 0, 0.52);
+            background-color: rgba(255, 105, 180, 0.33);
             overflow: scroll;
 
         }
@@ -60,7 +75,6 @@
             padding: 4rem;
             background: white;
         }
-
     </style>
 </head>
 
@@ -159,7 +173,7 @@
                     // console.log(klon);
 
                     klon.querySelector("h2").textContent = ret.gsx$navn.$t;
-                    klon.querySelector("img").src = "/07_02_01_bistrobabushka/imgs/small/" + ret.gsx$billede.$t + "-sm.jpg";
+                    klon.querySelector("img").src = "/imgs/small/" + ret.gsx$billede.$t + "-sm.jpg";
                     klon.querySelector("img").alt = "billedeaf" + ret.gsx$billede.$t;
                     //                    klon.querySelector("kategori").textContent += ret.gsx$kategori.$t;
                     klon.querySelector(".pris").textContent += ret.gsx$pris.$t;
@@ -188,16 +202,12 @@
             document.querySelector("#detalje .pris").textContent += ret.gsx$pris.$t;
             document.querySelector("#detalje .lang").textContent += ret.gsx$lang.$t;
             document.querySelector("#detalje .oprindelse").textContent += ret.gsx$oprindelse.$t;
-
-            document.querySelector("#detalje img").src = "/img/large/" + ret.gsx$billede.$t + ".jpg";
+            document.querySelector("#detalje img").src = "/imgs/large/" + ret.gsx$billede.$t + ".jpg";
             document.querySelector("#detalje img").alt = "billedeaf" + ret.gsx$billede.$t;
         }
 
         function skjulDetalje() {
             document.querySelector("#detalje").style.display = "none";
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
